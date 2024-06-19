@@ -4,7 +4,11 @@
     <input v-model="searchQuery" type="text" placeholder="Search for a book" />
 
     <div class="book-list">
-      <div v-for="bookData in filteredBooksData" :key="bookData.id" class="book-item">
+      <div
+        v-for="bookData in filteredBooksData"
+        :key="bookData.id"
+        class="book-item"
+      >
         <ListItem :data="bookData" />
       </div>
     </div>
@@ -37,7 +41,13 @@ onMounted(() => {
 async function fetchData() {
   try {
     const response = await axios.get(
-      "https://stephen-king-api.onrender.com/api/books"
+      "https://stephen-king-api.onrender.com/api/books",
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        }
+      }
     );
     booksData.value = response.data.data;
   } catch (error) {
